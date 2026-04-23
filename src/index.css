@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --meeting-bg: #f5f4fa;
+    --meeting-bg-alt: #f7f8fc;
+    --meeting-surface: #ffffff;
+    --meeting-surface-tint: #fafbff;
+    --meeting-surface-soft: #f1effa;
+    --meeting-text: #142459;
+    --meeting-muted: #6e7a99;
+    --meeting-border: #e6e8f2;
+    --meeting-border-strong: #d8dcf0;
+    --meeting-accent: #6658f5;
+    --meeting-accent-hover: #5848ee;
+    --meeting-success: #19c37d;
+    --meeting-warning: #f59e0b;
+    --meeting-danger: #ff5a7a;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    overflow-x: hidden;
+    background-color: #fbfaff;
+    color: #18214d;
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    min-height: 100vh;
+    overflow-x: clip;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  a,
+  input,
+  textarea {
+    font: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  textarea {
+    resize: none;
+  }
+}

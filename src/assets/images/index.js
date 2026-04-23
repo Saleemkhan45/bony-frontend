@@ -1,0 +1,14 @@
+export { default as heroIllustration } from './hero-illustration.svg';
+export { default as mirrorflyVideoCalling } from './mirrorfly-video-calling.webp';
+export { default as conferenceShowcaseIllustration } from './conference-showcase-illustration.svg';
+export { default as workflowCallCentreVideoCallWithCustomers } from './workflow-call-centre-video-call-with-customers-768.jpg';
+export { default as workflowCallCentreVideoCallWithCustomersCompact } from './workflow-call-centre-video-call-with-customers-480.jpg';
+export { default as whyChooseUsCallCollage } from './why-choose-us-call-collage.jpg';
+export { default as whyChooseUsCallCollageUpscaled } from './why-choose-us-call-collage-526.jpg';
+export { default as whyChooseUsCallCollageCompact } from './why-choose-us-call-collage-320.jpg';
+export { default as testimonialAlexJordan } from './testimonials/alex-jordan.jpg';
+export { default as testimonialAmeliaClark } from './testimonials/amelia-clark-160.jpg';
+export { default as testimonialEthanBrooks } from './testimonials/ethan-brooks.jpg';
+export { default as testimonialMichaelLee } from './testimonials/michael-lee.jpg';
+export { default as testimonialNinaRoberts } from './testimonials/nina-roberts-160.jpg';
+export { default as testimonialRichardOberfield } from './testimonials/richard-oberfield.jpg';
