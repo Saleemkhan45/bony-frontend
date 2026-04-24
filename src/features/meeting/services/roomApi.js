@@ -1,6 +1,10 @@
 import { requestMeetingJson } from './apiClient';
 
-export async function createMeetingRoom({ title, userId, userName }) {
+function getRequestControlOptions(options = {}) {
+  return options.signal ? { signal: options.signal } : {};
+}
+
+export async function createMeetingRoom({ title, userId, userName }, options = {}) {
   return requestMeetingJson('/api/rooms', {
     method: 'POST',
     body: JSON.stringify({
@@ -8,6 +12,7 @@ export async function createMeetingRoom({ title, userId, userName }) {
       userId,
       userName,
     }),
+    ...getRequestControlOptions(options),
   });
 }
 

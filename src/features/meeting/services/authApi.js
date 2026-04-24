@@ -84,6 +84,10 @@ async function requestAuthJson(pathname, options = {}) {
   }
 }
 
+function getRequestControlOptions(options = {}) {
+  return options.signal ? { signal: options.signal } : {};
+}
+
 function persistAuthSession(session) {
   storeMeetingAuthSession(session);
 
@@ -97,7 +101,7 @@ function persistAuthSession(session) {
   return session;
 }
 
-export async function createMeetingAuthSession({ userName, email, avatarUrl }) {
+export async function createMeetingAuthSession({ userName, email, avatarUrl }, options = {}) {
   const session = await requestAuthJson('/api/auth/session', {
     method: 'POST',
     body: JSON.stringify({
@@ -105,28 +109,29 @@ export async function createMeetingAuthSession({ userName, email, avatarUrl }) {
       email,
       avatarUrl,
     }),
+    ...getRequestControlOptions(options),
   });
 
   return persistAuthSession(session);
 }
 
-export async function getCurrentMeetingAuthSession() {
+export async function getCurrentMeetingAuthSession(options = {}) {
   const accessToken = getStoredMeetingAccessToken();
 
   if (!accessToken) {
     throw new Error('No meeting auth token is stored.');
   }
 
-  const payload = await requestAuthJson('/api/auth/me');
+  const payload = await requestAuthJson('/api/auth/me', getRequestControlOptions(options));
   return persistAuthSession({
     token: accessToken,
     user: payload.user,
   });
 }
 
-export async function ensureMeetingAuthSession(profile) {
+export async function ensureMeetingAuthSession(profile, options = {}) {
   try {
-    const existingSession = await getCurrentMeetingAuthSession();
+    const existingSession = await getCurrentMeetingAuthSession(options);
 
     return existingSession;
   } catch (error) {
@@ -146,5 +151,5 @@ export async function ensureMeetingAuthSession(profile) {
 
   return createMeetingAuthSession({
     userName: profile?.userName,
-  });
+  }, options);
 }

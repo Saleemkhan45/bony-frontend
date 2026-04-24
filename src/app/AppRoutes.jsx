@@ -22,6 +22,7 @@ function AppRoutes() {
   const navigate = useNavigate();
   const location = useLocation();
   const startMeetingModuleRef = useRef(null);
+  const startMeetingInFlightRef = useRef(false);
   const [isJoinMeetingOpen, setIsJoinMeetingOpen] = useState(false);
   const [isStartingMeeting, setIsStartingMeeting] = useState(false);
   const [startMeetingError, setStartMeetingError] = useState('');
@@ -67,10 +68,11 @@ function AppRoutes() {
 
     event.preventDefault();
 
-    if (isStartingMeeting) {
+    if (startMeetingInFlightRef.current) {
       return;
     }
 
+    startMeetingInFlightRef.current = true;
     setStartMeetingError('');
     setIsStartingMeeting(true);
     console.info('[home] Start Meeting clicked');
@@ -79,7 +81,9 @@ function AppRoutes() {
 
     try {
       startMeetingModule = await getStartMeetingModule();
-      const { roomId } = await startMeetingModule.startMeetingFromHome();
+      const { roomId } = await startMeetingModule.startMeetingFromHome({
+        timeoutMs: 15000,
+      });
       navigate(buildMeetingPrejoinPath(roomId));
     } catch (error) {
       console.error('[home] Unable to create meeting room', {
@@ -98,6 +102,7 @@ function AppRoutes() {
         );
       }
     } finally {
+      startMeetingInFlightRef.current = false;
       setIsStartingMeeting(false);
     }
   }
@@ -158,7 +163,7 @@ function AppRoutes() {
               <div className="w-full max-w-sm rounded-[26px] border border-[var(--meeting-border)] bg-white/96 px-6 py-7 text-center shadow-[0_24px_60px_rgba(20,36,89,0.16)]">
                 <div className="mx-auto h-11 w-11 animate-spin rounded-full border-2 border-[#d8dcff] border-t-[var(--meeting-accent)]" />
                 <p className="mt-4 text-sm font-semibold tracking-tight text-[var(--meeting-text)]">
-                  Starting your meeting...
+                  Creating meeting...
                 </p>
                 <p className="mt-1.5 text-xs text-[var(--meeting-muted)]">
                   Creating room and preparing your pre-join setup.

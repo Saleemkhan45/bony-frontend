@@ -26,10 +26,10 @@ function HeroContent({ content, isStartMeetingLoading = false, onAction }) {
             return (
               <Button
                 key={action.actionId ?? action.label}
-                href={action.href}
+                href={isLoading ? undefined : action.href}
                 size="sm"
                 variant={action.variant ?? 'solid'}
-                disabled={isLoading}
+                disabled={isLoading || undefined}
                 onClick={(event) => {
                   if (isLoading) {
                     event.preventDefault();
@@ -43,11 +43,12 @@ function HeroContent({ content, isStartMeetingLoading = false, onAction }) {
                   isLoading ? 'cursor-not-allowed opacity-80' : ''
                 }`}
                 aria-busy={isLoading}
+                aria-disabled={isLoading || undefined}
               >
                 {isLoading ? (
                   <>
                     <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/40 border-t-current" />
-                    Starting...
+                    Creating meeting...
                   </>
                 ) : (
                   action.label
