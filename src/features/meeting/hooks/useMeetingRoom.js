@@ -1454,7 +1454,7 @@ function useMeetingRoom(roomId) {
     }
 
     const socketClient = createMeetingSocketClient({
-      url: import.meta.env.VITE_MEETING_SOCKET_URL ?? 'http://localhost:5000',
+      url: import.meta.env.VITE_MEETING_SOCKET_URL ?? import.meta.env.VITE_API_BASE_URL,
       auth: {
         token: meetingAuth.token,
       },
